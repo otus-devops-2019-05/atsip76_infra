@@ -12,3 +12,4 @@ gcloud compute instances create reddit-app  --boot-disk-size=10GB   --image-fami
 Правило файрвола создаем из консоли командой:
 gcloud compute firewall-rules create default-puma-server --action allow --target-tags puma-server --direction ingress --source-ranges 0.0.0.0/0 --rules tcp:9292
 Указывая правильные тегиб, сетки, направление фильтра, протокол, порт
+
