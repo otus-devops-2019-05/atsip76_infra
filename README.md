@@ -1,4 +1,3 @@
-# atsip76_infra
 testapp_IP = 35.197.224.89
 testapp_port = 9292
 
@@ -12,6 +11,4 @@ gcloud compute instances create reddit-app  --boot-disk-size=10GB   --image-fami
 #*2
 Правило файрвола создаем из консоли командой:
 gcloud compute firewall-rules create default-puma-server --action allow --target-tags puma-server --direction ingress --source-ranges 0.0.0.0/0 --rules tcp:9292
-
 Указывая правильные тегиб, сетки, направление фильтра, протокол, порт
-
