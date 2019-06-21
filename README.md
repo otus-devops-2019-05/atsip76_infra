@@ -1,2 +1,3 @@
 # atsip76_infra
-atsip76 Infra repository
+testapp_IP = 35.197.224.89
+testapp_port = 9292
