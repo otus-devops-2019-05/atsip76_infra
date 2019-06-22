@@ -1,29 +1,14 @@
-bastion_IP = 35.234.112.242
-someinternalhost_IP = 10.156.0.3
+testapp_IP = 35.197.224.89
+testapp_port = 9292
 
-1. Подключение в одну команду из консоли 
-Два способа реализации:
-	1 Способ прыжком с доступного хоста на изолированный:
-		ssh -J bastion_IP someinternalhost_IP
-		попадаем через наш внешний хост 35.234.112.242 на изолированный хост 10.156.0.3
-	
-	2 Способ подключения к изолированному инстансу через тунель: 
-		ssh -tA work@bastion_IP ssh work@someinternalhost_IP
-		используем тунелирование -t для доступа к хосту в изолированной подсети через доступный хост с маршрутизированным IP
+#*1
+Для автоматического деплоя приложения при создании инстанса использованн примитивный линейный бэш скрипт
+script=startup-script.sh
+передающийся в качестве доп. аргумента при создании инстанса из gcloud консоли:
+gcloud compute instances create reddit-app  --boot-disk-size=10GB   --image-family ubuntu-1604-lts   --image-project=ubuntu-os-cloud   --machine-type=g1-small   --tags puma-server   --restart-on-failure --metadata-from-file startup-script=startup-script.sh
+опция - --metadata-from-file startup-script=startup-script.sh с указанием абсолютного пути до скрипта (в данном случае находящийся в текущей дире)
 
-2. Подключение по алиасу
-Два способа реализации:
-	1 Способ использование ~/.ssh/config для создания алиасов нужных хостов
-	редактируем  ~/.ssh/config:
-	Host someinternalhost
-        HostName someinternalhost_IP
-        User work
-        ProxyJump bastion_IP
-	После этого по команде ssh someinternalhost мы будем сразу прыгать на нужный изолированный хост
-
-	2 Способ (как вариант) использование алиасов пользовательского окружения
-	Для подключения с локальной консоли по алиасу someinternalhost можно настроить пользовательское окружение на локальной машине
-	создав алиас в .bashrc файле пользователя, например:
-	alias someinternalhost='ssh -tA work@35.234.112.242 ssh work@10.156.0.3'
-	теперь набрав в консоли алиас someinternalhost мы получим подключениек к консоли хоста someinternalhost
-
+#*2
+Правило файрвола создаем из консоли командой:
+gcloud compute firewall-rules create default-puma-server --action allow --target-tags puma-server --direction ingress --source-ranges 0.0.0.0/0 --rules tcp:9292
+Указывая правильные теги, сетки, направление фильтра, протокол, порт
