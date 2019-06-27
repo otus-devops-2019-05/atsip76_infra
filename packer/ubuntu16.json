@@ -1,0 +1,41 @@
+{
+    "variables": {
+			"project_id": "atsip76",
+			"zone": "europe-west1-b",
+			"source_image_family": "ubuntu-1604-lts",
+			"machine_type": "f1-micro",
+			"image_family": "reddit-base",
+			"ssh_username": "work"
+	},
+	"builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `project_id` }}",
+            "image_name": "reddit-base-{{timestamp}}",
+            "image_family": "{{ user `image_family` }}",
+			"disk_type": "pd-ssd",
+			"disk_size": "10",
+			"network": "default",
+			"tags": "puma-server",
+			"image_description": "HW5 Packer test image",
+            "source_image_family": "{{ user `source_image_family` }}",
+            "zone": "{{ user `zone` }}",
+            "ssh_username": "{{ user `ssh_username` }}",
+            "machine_type": "{{ user `machine_type` }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/install_mongodb.sh",
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
+
+
