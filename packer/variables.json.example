@@ -1,0 +1,14 @@
+{
+    "project_id": "atsip",
+    "image_description": "Test packer image",
+    "zone": "europe-west1-b",
+    "source_image_family": "ubuntu-1604-lts",
+    "machine_type": "f1-micro",
+    "image_family": "reddit-full",
+    "ssh_username": "work",
+	"disk_type": "pd-ssd",
+    "disk_size": "10",
+    "network": "default",
+    "tags": "puma-server",
+    "image_description": "HW5 Packer test image"
+}
