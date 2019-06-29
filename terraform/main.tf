@@ -1,5 +1,5 @@
 terraform {
-  required_version = "0.11.7"
+  required_version = ">= 0.11.7"
 }
 
 provider "google" {
@@ -20,7 +20,12 @@ resource "google_compute_instance" "app" {
   }
 
   metadata {
-    ssh-keys = "appuser:${file(var.public_key_path)}"
+    ssh-keys = <<EOT
+appuser:${file(var.public_key_path)}
+appuser1:${file(var.public_key_path)}
+appuser2:${file(var.public_key_path)}
+appuser3:${file(var.public_key_path)}
+EOT
   }
 
   tags = ["reddit-app"]
