@@ -1,0 +1,11 @@
+project = "atsip76"
+
+public_key_path = "~/.ssh/appuser.pub"
+
+disk_image = "reddit-base"
+
+private_key_path = "~/.ssh/appuser"
+
+zone = "europe-west1-b"
+
+count_instance = "1"

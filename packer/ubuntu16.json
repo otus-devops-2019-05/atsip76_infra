@@ -13,11 +13,11 @@
             "project_id": "{{ user `project_id` }}",
             "image_name": "reddit-base-{{timestamp}}",
             "image_family": "{{ user `image_family` }}",
-			"disk_type": "pd-ssd",
-			"disk_size": "10",
-			"network": "default",
-			"tags": "puma-server",
-			"image_description": "HW5 Packer test image",
+			      "disk_type": "pd-ssd",
+			      "disk_size": "10",
+			      "network": "default",
+			      "tags": "puma-server",
+			      "image_description": "Packer reddit-base image",
             "source_image_family": "{{ user `source_image_family` }}",
             "zone": "{{ user `zone` }}",
             "ssh_username": "{{ user `ssh_username` }}",
@@ -37,4 +37,3 @@
         }
     ]
 }
-
