@@ -23,3 +23,8 @@ variable zone {
 variable private_key_path {
   description = "Path to the private_key used for ssh access"
 }
+
+variable count_instance {
+  description = "count of instances"
+  default     = "1"
+}

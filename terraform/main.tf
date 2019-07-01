@@ -9,7 +9,9 @@ provider "google" {
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  name         = "reddit-app-${count.index}"
+  tags         = ["reddit-app"]
+  count        = "${var.count_instance}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
@@ -18,17 +20,6 @@ resource "google_compute_instance" "app" {
       image = "${var.disk_image}"
     }
   }
-
-  metadata {
-    ssh-keys = <<EOT
-appuser:${file(var.public_key_path)}
-appuser1:${file(var.public_key_path)}
-appuser2:${file(var.public_key_path)}
-appuser3:${file(var.public_key_path)}
-EOT
-  }
-
-  tags = ["reddit-app"]
 
   network_interface {
     network       = "default"
@@ -49,6 +40,17 @@ EOT
 
   provisioner "remote-exec" {
     script = "files/deploy.sh"
+  }
+}
+
+resource "google_compute_project_metadata" "ssh_keys" {
+  metadata {
+    ssh-keys = <<EOT
+appuser:${file(var.public_key_path)}
+appuser1:${file(var.public_key_path)}
+appuser2:${file(var.public_key_path)}
+appuser3:${file(var.public_key_path)}
+EOT
   }
 }
 

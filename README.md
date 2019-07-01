@@ -26,10 +26,42 @@
 
   ##### Task*
 
-  - [ ] Для внесения множества параметров в одну строку можно использовать символ новой стороки \n, но гораздо удобнее использовать метод here document собственный EOT. Пример ssh-keys = <<EOT appuser:${file(var.public_key_path)} appuser1:${file(var.public_key_path)} appuser2:${file(var.public_key_path)} appuser3:${file(var.public_key_path)} .... appuserN:${file(var.public_key_path)} EOT
-  - [ ] При добавлении ключа пользователя через web интерфейс, при следующем terrafofm apply это пользователь и ключ будет удален, что логично, т.к. терраформ приводить всю систему в единое подобие своего конф. файла
+- Для внесения множества параметров в одну строку можно использовать символ новой стороки \n, но гораздо удобнее использовать метод here document собственный EOT.
+
+  ```sh
+  Пример
+      ssh-keys = <<EOT
+      appuser:${file(var.public_key_path)}
+      appuser1:${file(var.public_key_path)}
+      appuser2:${file(var.public_key_path)}
+      appuser3:${file(var.public_key_path)}
+      appuserN:${file(var.public_key_path)}
+      EOT`
+  ```
+
+- При добавлении ключа пользователя через web интерфейс, при следующем apply это пользователь и ключ будет удален, что логично, т.к. терраформ приводить всю систему в единое подобие своего конф. файла
 
   ##### Task**
+
+- создана конфигурация tcp load_balancer lb.tf
+
+- В файл output добавлена переменная для возврата ip адреса load-balancer
+- в файле output исправлен синтаксис app_external_ip имя переменной для множества инстансов
+- в файл variable добавлена переменная count_instance для задания нужного количества создаваемых инстансов
+
+  #### Запуск проекта:
+
+```sh
+Выполнить terraform apply в директории terraform
+```
+
+### Проверка развертывания, перейдя по адресу сервера в вашем браузере:
+
+```sh
+Открыть в вашем браузере:
+lb_ip - ip address output variable
+lb_ip:443
+```
 
 # HW5
 
