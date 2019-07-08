@@ -1,6 +1,6 @@
 #создание ресурса БД
 resource "google_compute_instance" "db" {
-  name         = "reddit-db"
+  name         = "${var.name}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
   tags         = ["reddit-db"]

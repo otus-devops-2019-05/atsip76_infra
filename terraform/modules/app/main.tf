@@ -1,6 +1,6 @@
 #создание ресурса приложения
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  name         = "${var.name}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
   tags         = ["reddit-app"]
