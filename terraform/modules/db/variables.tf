@@ -16,3 +16,7 @@ variable name {
   description = "Name instance"
   default     = "reddit-db"
 }
+
+variable app_external_ip {
+  default = "127.0.0.1"
+}

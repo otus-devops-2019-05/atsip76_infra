@@ -23,13 +23,30 @@ resource "google_compute_instance" "app" {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
 
+  connection {
+    type        = "ssh"
+    user        = "appuser"
+    private_key = "${file("~/.ssh/appuser")}"
+  }
+
+  #подгружаем unit файл пумы в инстанс
   provisioner "file" {
-    source      = "files/puma.service"
+    source      = "${path.module}/puma.service"
     destination = "/tmp/puma.service"
   }
 
+  #подгружаем файл деплоя unit пумы в инстанс
+  provisioner "file" {
+    source      = "../modules/app/deploy.sh"
+    destination = "/tmp/deploy.sh"
+  }
+
+  #выполняем команды удаленно (помещаем переменную DATABASE_URL в файл юнита и выполняем деплой http сервиса )
   provisioner "remote-exec" {
-    script = "files/deploy.sh"
+    inline = [
+      "echo Environment='DATABASE_URL=${var.db_external_ip}:27017' >> '/tmp/puma.service'",
+      "bash /tmp/deploy.sh",
+    ]
   }
 }
 

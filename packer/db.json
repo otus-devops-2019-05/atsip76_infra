@@ -1,11 +1,12 @@
 {
-    "variables": {
+    "variables": 
+ 	{
 			"project_id": "atsip76",
 			"zone": "europe-west1-b",
 			"source_image_family": "ubuntu-1604-lts",
 			"machine_type": "f1-micro",
 			"image_family": "reddit-db-base",
-			"ssh_username": "work"
+			"ssh_username": "appuser"
 	},
 	"builders": [
         {
@@ -26,9 +27,15 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "scripts/mongod.conf",
+            "destination": "/tmp/mongod.conf"
+        },
+		{
             "type": "shell",
             "script": "scripts/install_mongodb.sh",
             "execute_command": "sudo {{.Path}}"
         }
     ]
 }
+
