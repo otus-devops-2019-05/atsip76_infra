@@ -29,8 +29,9 @@ resource "google_compute_instance" "app" {
     private_key = "${file("~/.ssh/appuser")}"
   }
 
+  ##Деплой приложения
   #подгружаем unit файл пумы в инстанс
-  provisioner "file" {
+  /* provisioner "file" {
     source      = "${path.module}/puma.service"
     destination = "/tmp/puma.service"
   }
@@ -47,7 +48,7 @@ resource "google_compute_instance" "app" {
       "echo Environment='DATABASE_URL=${var.db_external_ip}:27017' >> '/tmp/puma.service'",
       "bash /tmp/deploy.sh",
     ]
-  }
+  } */
 }
 
 resource "google_compute_address" "app_ip" {
