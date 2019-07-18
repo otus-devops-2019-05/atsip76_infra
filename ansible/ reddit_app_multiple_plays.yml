@@ -12,11 +12,9 @@
         dest: /etc/mongod.conf
         mode: 0644
       notify: restart mongod
-
   handlers:
   - name: restart mongod
     service: name=mongod state=restarted
-
 - name: Configure App
   hosts: app
   tags: app-tag
@@ -36,13 +34,11 @@
         dest: /home/appuser/db_config
         owner: appuser
         group: appuser
-
     - name: enable puma
       systemd: name=puma enabled=yes
   handlers:
   - name: reload puma
     systemd: name=puma state=reloaded
-
 - name: Deploy App
   hosts: app
   tags: deploy-tag
@@ -54,12 +50,10 @@
         dest: /home/appuser/reddit
         version: monolith # <-- Указываем нужную ветку
       notify: restart puma
-
     - name: Bundle install
       bundler:
         state: present
         chdir: /home/appuser/reddit
-
   handlers:
   - name: restart puma
     become: true
