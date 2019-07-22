@@ -4,7 +4,7 @@
   become: true
 
   vars_files:
-    - "~/OTUS/DEVOPS/atsip76_infra/ansible/environments/stage/credentials.yml"
+    - "{{ inventory_dir }}/credentials.yml"
 
   tasks:
     - name: create users
