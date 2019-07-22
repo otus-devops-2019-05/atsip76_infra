@@ -34,7 +34,7 @@ ansible-playbook -i playbooks/inv-prod.sh playbooks/site.yml
 Открыть в вашем браузере:
 reddit-app - узнаем external ip запустив inv.sh
 reddit-app:80
-
+```
 
 # HW9
 
