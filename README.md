@@ -14,6 +14,27 @@
 - импортируем users.yml и проганяем site.yml еще раз для создания пользователей
 - проверяем на машинах успешное создание необходимых пользователей
 
+###Task*
+- Использование динамического inventory:
+```sh
+stage:
+ansible-playbook -i playbooks/inv-stage.sh playbooks/site.yml
+
+prod:
+ansible-playbook -i playbooks/inv-prod.sh playbooks/site.yml
+```
+### Запуск проекта:
+
+```sh
+Выполнить ansible-playbook -i playbooks/inv-stage.sh playbooks/site.yml в директории проект/ansible
+```
+
+### Проверка развертывания, перейдя по адресу сервера в вашем браузере:
+```sh
+Открыть в вашем браузере:
+reddit-app - узнаем external ip запустив inv.sh
+reddit-app:80
+
 
 # HW9
 
