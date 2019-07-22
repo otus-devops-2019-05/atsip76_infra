@@ -8,14 +8,17 @@ roles/app/defaults/main.yml
 roles/db/defaults/main.yml
 
 
-if [ "$1" == "--list" ] ; then
+if [ "$1" == "--list" ] && [ "$2" == "--stage" ]; then
         app=$(echo ${dynamic_json_file} | awk -F"app | reddit" '{ print $2 }')
         db=$(echo ${dynamic_json_file} | awk -F"db " '{ print $2 }')
+        cd ~/OTUS/DEVOPS/atsip76_infra/ansible/environments/stage
         echo -e "{\"app\": [\"$app\"], \"db\": [\"$db\"]}" > inventory.json
+        #/bin/sed -i "s/{{ inventory_dir }}/~\/OTUS\/DEVOPS\/atsip76_infra\/ansible\/environments\/stage/" ~/OTUS/DEVOPS/atsip76_infra/ansible/playbooks/users.yml
         cat ./inventory.json
-elif [ "$1" == "--host" ]; then
+elif [ "$1" == "--host" ] && [ "$2" == "--stage" ]; then
         app=$(echo ${dynamic_json_file} | awk -F"app | reddit" '{ print $2 }')
         db=$(echo ${dynamic_json_file} | awk -F"db " '{ print $2 }')
+        cd ~/OTUS/DEVOPS/atsip76_infra/ansible/environments/stage
         echo -e "{\"app\": [\"$app\"], \"db\": [\"$db\"]}" > inventory.json
         cat ./inventory.json
 else
