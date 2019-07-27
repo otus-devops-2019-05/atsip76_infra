@@ -19,4 +19,5 @@ def test_config_file(host):
 
 # check open port 27017
 def test_open_port(host):
-    host.socket("tcp://127.0.0.1:27016").is_listening
+    db_port = host.socket("tcp://0.0.0.0:27017")
+    assert db_port.is_listening
